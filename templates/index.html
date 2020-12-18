@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<p>
+    {% if request.user.is_authenticated %}
+    <div class="alert alert-info" role="alert">
+    Welcome, {{request.user.username}}
+    </div>
+    {% else %}  
+    
+    {% endif %}
+</p>
+
+<div class = "jumbotron text-center">
+
+<h3>Welcome</h3>
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt ab in, 
+ratione dolore maxime repudiandae provident cupiditate? Inventore dolores recusandae
+deserunt suscipit blanditiis autem dolorem nostrum modi qui debitis! Debitis?</p>
+</div>
+
+
+
+{% endblock body %}

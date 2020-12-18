@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% load crispy_forms_tags %} 
+<br>
+<div class="row">
+<div class="col">
+<h3><i>Create Article</i></h3>
+<hr>
+<form method = "post" enctype="multipart/form-data">
+{% csrf_token %}
+{{form.media}}
+{{form|crispy}}
+<button type = "submit" class = "btn btn-dark">Add Article</button>
+</form>
+</div>
+</div>
+{% endblock body %}

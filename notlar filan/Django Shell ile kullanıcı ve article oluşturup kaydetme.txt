@@ -1,0 +1,93 @@
+python manage.py shell
+In [1]: from django.contrib.auth.models import User
+
+In [2]: from article.models import Article
+
+In [3]: User
+Out[3]: django.contrib.auth.models.User
+
+In [4]: newUser = User(username = "denemekullanici",password = "123456")
+
+In [5]: newUser
+Out[5]: <User: denemekullanici>
+
+In [6]: newUser.save() 
+
+In [7]: newUser2 = User(username = "denemekullanici2")
+
+In [8]: newUser2.set_password("123456") #şifreyi şifreleyip kayıt eder.
+
+In [9]: newUser2.save()
+
+In [10]: newUser3 = User()
+
+In [11]: newUser3.username = "denemekullanici3"
+
+In [12]: newUser3.set_password("123456")
+
+In [13]: newUser3.first_name = "Hakan"
+
+In [15]: newUser3.save()
+
+In [16]: article = Article(title = "Django Shell Deneme",content = "İçerik Django",author = newUser3)
+
+In [17]: article.save()
+
+In [18]: article2 = Article()
+
+In [19]: article2.title = "Django Deneme"
+
+In [20]: article2.content = "Content İçerik"
+
+In [21]: article2.author = newUser3
+
+In [22]: article2.save()
+
+In [23]: Article.objects.create(title = "Deneme 10",content = "Content bilmem kaç",author = newUser2)
+Out[23]: <Article: Deneme 10> #Başka bir article oluşturma yöntemi
+
+In [25]: article  = Article.objects.create(title = "Deneme 30",content = "Content bilmem kaç",author = newUser2)
+
+In [26]: article.title
+Out[26]: 'Deneme 30'
+
+#Title değiştirme
+
+In [27]: article.title = "Deneme 30 Değişti"
+
+In [28]: article.save()
+
+In [29]: article.title
+Out[29]: 'Deneme 30 Değişti'
+
+#Oluşturulan articleların hepsini almak için;
+In [30]: Article.objects.all()
+Out[30]: <QuerySet [<Article: Deneme>, <Article: Article>, <Article: Django Shell Deneme>, <Article: Django Deneme>, <Article: Deneme 10>, <Article: Deneme 30 Değişti>]>
+
+#Belirli olanları almak için (title mesela)
+
+In [31]: Article.objects.get(title = "Django Shell Deneme")
+Out[31]: <Article: Django Shell Deneme>
+
+In [33]: article = Article.objects.get(title = "Django Shell Deneme") #article'ı alma işlemi
+
+In [34]: article.author
+Out[34]: <User: denemekullanici3>
+
+#Article Silme İşlemi;
+In [35]: article.delete()
+Out[35]: (1, {'article.Article': 1})
+
+#id ye göre article alma
+In [37]: article = Article.objects.get(id = 1)
+
+In [38]: article
+Out[38]: <Article: Deneme>
+
+#Article filtreleme işlemi;
+In [40]: Article.objects.filter(title__contains = "Den")
+Out[40]: <QuerySet [<Article: Django Deneme>, <Article: Deneme 10>, <Article: Deneme 30 Değişti>]>
+
+
+
+
